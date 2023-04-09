@@ -1,0 +1,24 @@
+import socket
+
+ Define the placeholders and their corresponding values
+replacements = {
+    "[DAY_OF_WEEK]": "Sunday",
+    "[CURRENT_DATE]": "01.01.2022"
+}
+
+ Read the file contents and replace the placeholders with their values
+with open("file.txt", "r") as file:
+    content = file.read()
+    for placeholder, value in replacements.items():
+        content = content.replace(placeholder, value)
+
+ Create a TCP socket and listen on port 8080
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(("0.0.0.0", 8080))
+sock.listen()
+
+
+ while True:
+    conn, addr = sock.accept()
+    conn.sendall(content.encode())
+    conn.close
